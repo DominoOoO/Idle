@@ -1,0 +1,71 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Idle Clicker Game</title>
+  <style>
+    body {
+      font-family: Arial;
+      text-align: center;
+      background: #1e1e2f;
+      color: white;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .container {
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h1>Idle Coin Game 💰</h1>
+
+  <h2>Coins: <span id="coins">0</span></h2>
+  <h3>Coins/sec: <span id="cps">0</span></h3>
+
+  <button onclick="mine()">Click for Coin</button>
+  <br>
+
+  <button onclick="buyMiner()">Buy Miner (Cost: <span id="minerCost">10</span>)</button>
+</div>
+
+<script>
+let coins = 0;
+let miners = 0;
+let minerCost = 10;
+
+// Update UI
+function update() {
+  document.getElementById("coins").innerText = Math.floor(coins);
+  document.getElementById("cps").innerText = miners;
+  document.getElementById("minerCost").innerText = minerCost;
+}
+
+// Manual click
+function mine() {
+  coins += 1;
+  update();
+}
+
+// Buy auto generator
+function buyMiner() {
+  if (coins >= minerCost) {
+    coins -= minerCost;
+    miners += 1;
+    minerCost = Math.floor(minerCost * 1.5);
+    update();
+  }
+}
+
+// Idle income loop
+setInterval(() => {
+  coins += miners;
